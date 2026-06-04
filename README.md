@@ -27,6 +27,7 @@ This project was designed for educational environments and can be used by studen
 | Breadboard | 1 |
 | Jumper Wires | Several |
 | USB Cable | 1 |
+| 100 Ω Resistor | 1 |
 
 
 
@@ -70,7 +71,7 @@ The complete wiring diagram can be found below:
 
 | Buzzer | Arduino UNO |
 |--------|--------|
-| Positive (+) | Pin 10 |
+| Positive (+) | 100Ω Resistor - Pin 10 |
 | Negative (-) | GND |
 
 ---
