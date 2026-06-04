@@ -34,7 +34,7 @@ This project was designed for educational environments and can be used by studen
 
 The complete wiring diagram can be found below:
 
-![Wiring Diagram](images/wiring_diagram.png)
+![Wiring Diagram](images/wiringDiagram.png)
 
 ---
 
