@@ -1,36 +1,65 @@
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include <SoftwareSerial.h>
-#include <DHT.h>
+// -----------------------------------------------------
+// LIBRARIES
+// -----------------------------------------------------
+// Libraries are pre-written code that allow us to use specific components more easily.
+
+#include <Wire.h>               // Communication library for I2C devices
+#include <Adafruit_GFX.h>       // Graphics library for displays
+#include <Adafruit_SSD1306.h>   // OLED display library
+#include <SoftwareSerial.h>     // Creates additional serial communication pins
+#include <DHT.h>                // DHT11 temperature and humidity sensor library
+
+// -----------------------------------------------------
+// OLED SCREEN SETTINGS
+// -----------------------------------------------------
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
+// Create the OLED display object
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// MH-Z19B
+// -----------------------------------------------------
+// MH-Z19B CO₂ SENSOR SETTINGS
+// -----------------------------------------------------
+
+// Create a software serial connection.
+// First number = RX pin
+// Second number = TX pin
 SoftwareSerial co2Serial(2, 3); // RX, TX
+
+// Command used to request a CO₂ measurement from the sensor
 byte cmd[] = {0xFF, 0x01, 0x86, 0, 0, 0, 0, 0, 0x79};
 
-// DHT11
+// -----------------------------------------------------
+// DHT11 TEMPERATURE & HUMIDITY SENSOR SETTINGS
+// -----------------------------------------------------
+
+#define DHTPIN 4 // Data pin connected to the DHT11
+#define DHTTYPE DHT11 // Sensor type
+
+// Create the DHT sensor object
 #define DHTPIN 4
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
-// Buzzer
-int buzzer = 10;
+// -----------------------------------------------------
+// BUZZER SETTINGS
+// -----------------------------------------------------
+int buzzer = 10; // Pin connected to the buzzer
+
+// CO₂ threshold that will trigger the alarm
 int co2Limit = 1200;
 
 void setup() {
-  Serial.begin(9600);
-  co2Serial.begin(9600);
-  dht.begin();
+  Serial.begin(9600);      // Start communication with the computer
+  co2Serial.begin(9600);   // Start communication with the CO₂ sensor
+  dht.begin();             // Start the DHT11 sensor
 
-  pinMode(buzzer, OUTPUT);
+  pinMode(buzzer, OUTPUT);  // Set the buzzer pin as an output
 
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  display.clearDisplay();
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);   // Start the OLED display
+  display.clearDisplay();                      // Clear anything previously shown on the display
   display.setTextColor(WHITE);
   display.setTextSize(1);
   display.setCursor(0, 20);
