@@ -20,7 +20,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 // Buzzer
 int buzzer = 10;
-int co2Limit = 1500;
+int co2Limit = 1200;
 
 void setup() {
   Serial.begin(9600);
